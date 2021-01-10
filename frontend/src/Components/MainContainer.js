@@ -86,10 +86,23 @@ class MainContainer extends React.Component {
 
   render() {
     return (
-      <div className='app-main'>
-        <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
-        <SongsContainer songData={ this.state.songs } deleteSong={this.deleteSong} updateSong={this.updateSong}/>
-      </div>
+      <section>
+        <div className="menu">
+          <div className="menu-top">
+          </div>
+          <nav>
+            <li>曲を登録する</li>
+            <li>保存した曲一覧</li>
+            <li>設定</li>
+          </nav>
+        </div>
+        <main>
+          <div className="main-top">
+          </div>
+          <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
+          <SongsContainer songData={ this.state.songs } deleteSong={this.deleteSong} updateSong={this.updateSong}/>
+        </main>
+      </section>
     );
   }
 }
