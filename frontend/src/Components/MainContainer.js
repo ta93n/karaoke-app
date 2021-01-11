@@ -87,14 +87,18 @@ class MainContainer extends React.Component {
   render() {
     return (
       <section>
-        <div className="menu">
-          <div className="menu-top">
+        <div className="sidebar">
+          <div className="sidebar-top">
           </div>
-          <nav>
-            <li>曲を登録する</li>
-            <li>保存した曲一覧</li>
-            <li>設定</li>
-          </nav>
+          <div className="menu">
+            <div className="add-song-button">
+              <button>曲を登録する</button>
+            </div>
+            <nav>
+              <li>保存した曲一覧</li>
+              <li>設定</li>
+            </nav>
+          </div>
         </div>
         <main>
           <div className="main-top">

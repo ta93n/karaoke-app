@@ -1,5 +1,11 @@
 .App {
   position: relative;
+  font-family: "Helvetica Neue",
+                Arial,
+                "Hiragino Kaku Gothic ProN",
+                "Hiragino Sans",
+                Meiryo,
+                sans-serif;
 }
 
 header {
@@ -17,19 +23,40 @@ section {
   justify-content: space-around;
 }
 
-.menu {
+.sidebar {
   width: 200px;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.menu-top {
+.sidebar-top {
   height: 64px;
+}
+
+.menu {
+  position: fixed;
+}
+
+.add-song-button {
+  padding: 20px;
+}
+
+.add-song-button button {
+  width: 100%;
+  height: 60px;
+  font-size: 18px;
 }
 
 nav {
   width: 200px;
   height: 100%;
-  position: fixed;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  list-style: none;
+  padding: 10px 0px;
+}
+
+nav li {
+  font-size: 16px;
+  line-height: 40px;
+  padding: 0px 20px;
 }
 
 main {
@@ -44,4 +71,11 @@ main {
   padding: 10px;
   font-size: 20px;
   color: red;
+}
+
+button {
+  background-color: #39b2ab;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
 
 class ViewSong extends React.Component {
   constructor(props) {
@@ -31,7 +30,7 @@ class ViewSong extends React.Component {
           <input type="text" value={this.state.updateText} onChange={e => this.handleInput(e)} />
         </span>
         <span>
-          <Button type="submit" onClick={this.handleUpdate}>更新！</Button>
+          <button type="submit" onClick={this.handleUpdate}>更新！</button>
         </span>
       </div>
     );

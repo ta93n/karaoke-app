@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button,FormGroup,FormControl} from 'react-bootstrap';
+import {FormGroup,FormControl} from 'react-bootstrap';
 
 class FormContainer extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class FormContainer extends React.Component {
           />
         </FormGroup>
       </form>
-      <Button type="submit" onClick={this.hundleSubmit}>つぶやく</Button>
+      <button type="submit" onClick={this.hundleSubmit}>つぶやく</button>
       </div>
     )
   }
