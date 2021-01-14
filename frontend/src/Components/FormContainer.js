@@ -13,7 +13,7 @@ class FormContainer extends React.Component {
     this.setState({song: e.target.value})
   }
 
-  hundleSubmit = () => {
+  handleSubmit = () => {
     this.props.createSong(this.state.song)
     this.setState({song:''})
   }
@@ -26,12 +26,12 @@ class FormContainer extends React.Component {
           <FormControl
             type="text"
             value={this.state.song}
-            placeholder="Enter text"
+            placeholder="曲名"
             onChange={ e => this.onChangetext(e)}
           />
         </FormGroup>
       </form>
-      <button type="submit" onClick={this.hundleSubmit}>つぶやく</button>
+      <button type="submit" onClick={this.handleSubmit}>登録</button>
       </div>
     )
   }

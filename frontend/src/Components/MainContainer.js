@@ -4,6 +4,8 @@ import SongsContainer from './SongsContainer';
 import FormContainer from './FormContainer';
 import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
 import Modal from 'react-modal'; // Modalコンポーネント
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
@@ -24,7 +26,7 @@ const modalStyle = {
     left: "5rem",
     right: "5rem",
     bottom: "5rem",
-    backgroundColor: "paleturquoise",
+    backgroundColor: "#fff",
     borderRadius: "1rem",
     padding: "1.5rem"
   }
@@ -116,8 +118,6 @@ class MainContainer extends React.Component {
     })
   }
 
-
-
   render() {
 
     return (
@@ -138,7 +138,6 @@ class MainContainer extends React.Component {
         <main>
           <div className="main-top">
           </div>
-          <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
           <SongsContainer songData={this.state.songs} deleteSong={this.deleteSong} updateSong={this.updateSong}/>
         </main>
         <Modal
@@ -158,7 +157,17 @@ class MainContainer extends React.Component {
           }}
           closeTimeoutMS={500}
         >
-          <button onClick={() => {this.handleClickClose()}}>Close Modal</button>
+          <div className="modal-close">
+            <button onClick={() => {this.handleClickClose()}}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
+          <div className="modal-header">
+            <h2>曲を登録する</h2>
+          </div>
+          <div className="modal-form">
+            <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
+          </div>
         </Modal>
       </section>
     );
