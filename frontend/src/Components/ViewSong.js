@@ -1,5 +1,7 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faEdit } from "@fortawesome/free-solid-svg-icons";
+
 
 class ViewSong extends React.Component {
   constructor(props) {
@@ -10,7 +12,12 @@ class ViewSong extends React.Component {
   }
 
   handleDelete = () => {
-    this.props.onDelete(this.props.data.id)
+    let result = window.confirm('削除しますか？');
+    if (result) {
+      this.props.onDelete(this.props.data.id)
+    } else {
+      console.log('キャンセルがクリックされました');
+    }
   }
 
   handleUpdate = () => {
@@ -21,19 +28,21 @@ class ViewSong extends React.Component {
     this.setState({updateText: e.target.value})
   }
 
-
   render() {
     return(
-      <div>
-        <span>{this.props.data.title}</span>
-        <span className='deleteButton' onClick={this.handleDelete}>X</span>
-        <span>
-          <input type="text" value={this.state.updateText} onChange={e => this.handleInput(e)} />
-        </span>
-        <span>
-          <Button type="submit" onClick={this.handleUpdate}>更新！</Button>
-        </span>
-      </div>
+      <tr align="center">
+        <td>{this.props.data.title}</td>
+        <td><input type="text" value={this.state.updateText} onChange={e => this.handleInput(e)} /></td>
+        <td><button type="submit" onClick={this.handleUpdate}>更新！</button></td>
+        <td>
+          <span className="editButton">
+            <FontAwesomeIcon icon={faEdit} />
+          </span>
+          <span className="deleteButton" onClick={this.handleDelete}>
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </td>
+      </tr>
     );
   }
 }

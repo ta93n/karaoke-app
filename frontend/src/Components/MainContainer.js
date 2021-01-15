@@ -3,16 +3,50 @@ import axios from 'axios';
 import SongsContainer from './SongsContainer';
 import FormContainer from './FormContainer';
 import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
+import Modal from 'react-modal'; // Modalコンポーネント
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
+Modal.setAppElement('#root');
+
+const modalStyle = {
+  // Modal外側のスタイリング
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,0.85)"
+  },
+  // Modal内側のスタイリング
+  content: {
+    position: "absolute",
+    top: "5rem",
+    left: "5rem",
+    right: "5rem",
+    bottom: "5rem",
+    backgroundColor: "#fff",
+    borderRadius: "1rem",
+    padding: "1.5rem"
+  }
+};
 
 class MainContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      songs: []
+      songs: [],
+      isModalOpen: false
     }
+  }
+
+  handleClickOpen() {
+    this.setState({isModalOpen: true});
+  }
+
+  handleClickClose() {
+    this.setState({isModalOpen: false});
   }
 
   createSong = (song) => {
@@ -85,11 +119,57 @@ class MainContainer extends React.Component {
   }
 
   render() {
+
     return (
-      <div className='app-main'>
-        <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
-        <SongsContainer songData={ this.state.songs } deleteSong={this.deleteSong} updateSong={this.updateSong}/>
-      </div>
+      <section>
+        <div className="sidebar">
+          <div className="sidebar-top">
+          </div>
+          <div className="menu">
+            <div className="add-song-button">
+              <button onClick={() => {this.handleClickOpen()}}>曲を登録する</button>
+            </div>
+            <nav>
+              <li>保存した曲一覧</li>
+              <li>設定</li>
+            </nav>
+          </div>
+        </div>
+        <main>
+          <div className="main-top">
+          </div>
+          <SongsContainer songData={this.state.songs} deleteSong={this.deleteSong} updateSong={this.updateSong}/>
+        </main>
+        <Modal
+          isOpen={this.state.isModalOpen}
+          style={modalStyle}
+          /* onRequestClose={() => {this.handleClickClose()}} ←外側クリックでモーダル閉じる */
+          // アニメーションをスタイリングするクラス名を追加
+          overlayClassName={{
+            base: "overlay-base",
+            afterOpen: "overlay-after",
+            beforeClose: "overlay-before"
+          }}
+          className={{
+            base: "content-base",
+            afterOpen: "content-after",
+            beforeClose: "content-before"
+          }}
+          closeTimeoutMS={500}
+        >
+          <div className="modal-close">
+            <button onClick={() => {this.handleClickClose()}}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
+          <div className="modal-header">
+            <h2>曲を登録する</h2>
+          </div>
+          <div className="modal-form">
+            <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
+          </div>
+        </Modal>
+      </section>
     );
   }
 }
