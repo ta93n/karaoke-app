@@ -2,35 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import SongsContainer from './SongsContainer';
 import FormContainer from './FormContainer';
+import ModalContainer from './ModalContainer';
 import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
-import Modal from 'react-modal'; // Modalコンポーネント
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-
-Modal.setAppElement('#root');
-
-const modalStyle = {
-  // Modal外側のスタイリング
-  overlay: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    backgroundColor: "rgba(0,0,0,0.85)"
-  },
-  // Modal内側のスタイリング
-  content: {
-    position: "absolute",
-    top: "5rem",
-    left: "5rem",
-    right: "5rem",
-    bottom: "5rem",
-    backgroundColor: "#fff",
-    borderRadius: "1rem",
-    padding: "1.5rem"
-  }
-};
 
 class MainContainer extends React.Component {
   constructor(props){
@@ -49,16 +26,15 @@ class MainContainer extends React.Component {
     this.setState({isModalOpen: false});
   }
 
+  // axios(アクシオス HTTP通信を行うことができるJavascriptライブラリ) を使ってRailsAPIと通信を行い、結果はresultsに格納される
   createSong = (song) => {
     // POST通信
     axios.post('http://localhost:3001/songs',{song: song})
-
     // thenで成功した場合の処理をかける
     .then((response) => {
       const newData = update(this.state.songs, {$push:[response.data]});
       this.setState({songs: newData});
     })
-
     // catchでエラー時の挙動を定義する
     .catch((data) => {
       console.log(data);
@@ -68,7 +44,6 @@ class MainContainer extends React.Component {
   deleteSong = (id) => {
     // DELETE通信
     axios.delete(`http://localhost:3001/songs/${id}`)
-
     // thenで成功した場合の処理をかける
     .then((response) => {
       const songIndex = this.state.songs.findIndex(x => x.id === id); // findIndex: 配列の中から特定の要素のインデックスを返す
@@ -76,7 +51,6 @@ class MainContainer extends React.Component {
       this.setState({songs: deletedSongs});
       console.log('set');
     })
-
     // catchでエラー時の挙動を定義する
     .catch((data) =>{
       console.log(data);
@@ -86,7 +60,6 @@ class MainContainer extends React.Component {
   updateSong = (id, song) => {
     // PATCH通信
     axios.patch(`http://localhost:3001/songs/${id}`,{song: song})
-
     // thenで成功した場合の処理をかける
     .then((response) => {
       const songIndex = this.state.songs.findIndex(x => x.id === id);
@@ -95,23 +68,20 @@ class MainContainer extends React.Component {
       });
       this.setState({songs: songs});
     })
-
     // catchでエラー時の挙動を定義する
     .catch((data) =>{
       console.log(data);
     })
   }
 
-  componentDidMount() { // axios(アクシオス HTTP通信を行うことができるJavascriptライブラリ) を使ってRailsAPIと通信を行い、結果はresultsに格納される
+  componentDidMount() {
     // GET通信
     axios.get('http://localhost:3001/songs')
-
     // thenで成功した場合の処理をかける
     .then((results) => {
       console.log(results);
       this.setState({songs: results.data});
     })
-
     // catchでエラー時の挙動を定義する
     .catch((data) => {
       console.log(data);
@@ -119,7 +89,6 @@ class MainContainer extends React.Component {
   }
 
   render() {
-
     return (
       <section>
         <div className="sidebar">
@@ -140,35 +109,7 @@ class MainContainer extends React.Component {
           </div>
           <SongsContainer songData={this.state.songs} deleteSong={this.deleteSong} updateSong={this.updateSong}/>
         </main>
-        <Modal
-          isOpen={this.state.isModalOpen}
-          style={modalStyle}
-          /* onRequestClose={() => {this.handleClickClose()}} ←外側クリックでモーダル閉じる */
-          // アニメーションをスタイリングするクラス名を追加
-          overlayClassName={{
-            base: "overlay-base",
-            afterOpen: "overlay-after",
-            beforeClose: "overlay-before"
-          }}
-          className={{
-            base: "content-base",
-            afterOpen: "content-after",
-            beforeClose: "content-before"
-          }}
-          closeTimeoutMS={500}
-        >
-          <div className="modal-close">
-            <button onClick={() => {this.handleClickClose()}}>
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
-          </div>
-          <div className="modal-header">
-            <h2>曲を登録する</h2>
-          </div>
-          <div className="modal-form">
-            <FormContainer handleAdd={this.handleAdd} createSong={this.createSong}/>
-          </div>
-        </Modal>
+        <ModalContainer isModalOpen={this.state.isModalOpen} handleClickClose={() => {this.handleClickClose()}} />
       </section>
     );
   }
