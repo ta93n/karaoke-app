@@ -14,10 +14,8 @@ class ViewSong extends React.Component {
   handleDelete = () => {
     let result = window.confirm('削除しますか？');
     if (result) {
-      this.props.onDelete(this.props.data.id)
-    } else {
-      console.log('キャンセルがクリックされました');
-    }
+      this.props.onDelete(this.props.data.id);
+    } 
   }
 
   handleUpdate = () => {

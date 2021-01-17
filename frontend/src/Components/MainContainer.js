@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import SongsContainer from './SongsContainer';
-import FormContainer from './FormContainer';
 import ModalContainer from './ModalContainer';
 import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
@@ -34,6 +31,7 @@ class MainContainer extends React.Component {
     .then((response) => {
       const newData = update(this.state.songs, {$push:[response.data]});
       this.setState({songs: newData});
+      this.setState({isModalOpen: false});
     })
     // catchでエラー時の挙動を定義する
     .catch((data) => {
@@ -109,7 +107,11 @@ class MainContainer extends React.Component {
           </div>
           <SongsContainer songData={this.state.songs} deleteSong={this.deleteSong} updateSong={this.updateSong}/>
         </main>
-        <ModalContainer isModalOpen={this.state.isModalOpen} handleClickClose={() => {this.handleClickClose()}} />
+        <ModalContainer
+          isModalOpen={this.state.isModalOpen}
+          handleClickClose={() => {this.handleClickClose()}}
+          createSong={this.createSong}
+        />
       </section>
     );
   }
