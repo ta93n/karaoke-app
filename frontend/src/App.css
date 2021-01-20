@@ -1,11 +1,14 @@
-.App {
-  position: relative;
+#root {
   font-family: "Helvetica Neue",
                 Arial,
                 "Hiragino Kaku Gothic ProN",
                 "Hiragino Sans",
                 Meiryo,
                 sans-serif;
+}
+
+.wrapper {
+  display: flex;
 }
 
 /* header */
@@ -18,20 +21,11 @@ header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-/* contents */
-
-section {
-  width:auto;
-  height: 1000px;
-  display: flex;
-  justify-content: space-around;
-  background-color: #fff;
-}
-
 /* sidebar */
 
-.sidebar {
+aside {
   width: 200px;
+  min-height: 100vh;
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -60,24 +54,20 @@ nav {
   padding: 10px 0px;
 }
 
-nav li {
-  font-size: 16px;
-  line-height: 40px;
-  padding: 0px 20px;
-}
-
 /* main */
 
 main {
   flex: auto;
+  background-color: #fff;
 }
 
 .main-top {
   height: 64px;
 }
 
-.songsList {
+.content {
   max-width: 1280px;
+  min-height: 800px;
   margin: auto;
   padding: 20px;
 }

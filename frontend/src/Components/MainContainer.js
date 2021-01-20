@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
+import { Switch, Route } from 'react-router-dom';
 import SongsContainer from './SongsContainer';
 import ModalContainer from './ModalContainer';
-import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
@@ -88,8 +89,8 @@ class MainContainer extends React.Component {
 
   render() {
     return (
-      <section>
-        <div className="sidebar">
+      <div className="wrapper">
+        <aside>
           <div className="sidebar-top">
           </div>
           <div className="menu">
@@ -97,22 +98,33 @@ class MainContainer extends React.Component {
               <button onClick={() => {this.handleClickOpen()}}>曲を登録する</button>
             </div>
             <nav>
-              <li>保存した曲一覧</li>
-              <li>設定</li>
+              {/* ナビゲーション項目 */}
             </nav>
           </div>
-        </div>
+        </aside>
         <main>
           <div className="main-top">
           </div>
-          <SongsContainer songData={this.state.songs} deleteSong={this.deleteSong} updateSong={this.updateSong}/>
+          <div className="content">
+            <Switch>
+              <Route path="/create" exact>
+                <ModalContainer
+                  isModalOpen={this.state.isModalOpen}
+                  handleClickClose={() => {this.handleClickClose()}}
+                  createSong={this.createSong}
+                />
+              </Route>
+              <Route path="/" exact>
+                <SongsContainer
+                  songData={this.state.songs}
+                  deleteSong={this.deleteSong}
+                  updateSong={this.updateSong}
+                />
+              </Route>
+            </Switch>
+          </div>
         </main>
-        <ModalContainer
-          isModalOpen={this.state.isModalOpen}
-          handleClickClose={() => {this.handleClickClose()}}
-          createSong={this.createSong}
-        />
-      </section>
+      </div>
     );
   }
 }
