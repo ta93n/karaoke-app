@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faEdit } from "@fortawesome/free-solid-svg-icons";
-
 
 class ViewSong extends React.Component {
 
@@ -16,12 +16,10 @@ class ViewSong extends React.Component {
     return(
       <tr align="center">
         <td>{this.props.data.title}</td>
-        <td></td>
-        <td></td>
         <td>
-          <span className="editButton">
+          <Link to={"/edit/" + this.props.data.id}>
             <FontAwesomeIcon icon={faEdit} />
-          </span>
+          </Link>
           <span className="deleteButton" onClick={this.handleDelete}>
             <FontAwesomeIcon icon={faTimes} />
           </span>

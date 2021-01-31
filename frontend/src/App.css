@@ -47,12 +47,30 @@ aside {
   font-size: 18px;
 }
 
-nav {
+.menu nav {
   width: 200px;
   height: 100%;
   list-style: none;
   padding: 10px 0px;
 }
+
+.menu nav li {
+  line-height: 40px;
+}
+
+.menu nav li:hover {
+  background-color: #eaeaea;
+}
+
+.menu nav li a {
+  display: block;
+  padding: 0 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+}
+
+
 
 /* main */
 
@@ -72,83 +90,6 @@ main {
   padding: 20px;
 }
 
-/* modal */
-
-.overlay-base {
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  opacity: 0;
-  transition-property: background-color, opacity;
-  transition-duration: 500ms;
-  transition-timing-function: ease-in-out;
-  outline: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.overlay-after {
-  opacity: 1;
-}
-
-.overlay-before {
-  opacity: 0;
-}
-
-.content-base {
-  position: relative;
-  top: auto;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  margin: 0 auto;
-  border: 0;
-  outline: 0;
-  justify-content: center;
-  align-items: center;
-  height: 0%;
-  width: 0%;
-  transition-property: width, height;
-  transition-duration: 500ms;
-  transition-timing-function: ease-in-out;
-}
-
-.content-after {
-  width: 70%;
-  height: 40%;
-}
-
-.content-before {
-  width: 0%;
-  height: 0%;
-  background-color: transparent;
-}
-
-.modal-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 5px;
-}
-
-.modal-header {
-  padding: 0;
-  border: none;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 24px;
-}
-
-.modal-form {
-  padding: 15px 0;
-}
-
 /* table */
 
 table th, td {
@@ -165,6 +106,6 @@ table th, td {
 button {
   background-color: #39b2ab;
   border-radius: 4px;
-  color: #fff;
   border: none;
+  color: white;
 }

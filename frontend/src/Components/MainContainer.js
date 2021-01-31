@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import update from 'react-addons-update'; // ObjectをImmutableに操作するためのAddon
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
 import SongsContainer from './SongsContainer';
-import ModalContainer from './ModalContainer';
+import CreateContainer from './CreateContainer';
+import EditContainer from './EditContainer';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
@@ -12,16 +14,7 @@ class MainContainer extends React.Component {
     super(props);
     this.state = {
       songs: [],
-      isModalOpen: false
     }
-  }
-
-  handleClickOpen() {
-    this.setState({isModalOpen: true});
-  }
-
-  handleClickClose() {
-    this.setState({isModalOpen: false});
   }
 
   // axios(アクシオス HTTP通信を行うことができるJavascriptライブラリ) を使ってRailsAPIと通信を行い、結果はresultsに格納される
@@ -90,36 +83,31 @@ class MainContainer extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <aside>
-          <div className="sidebar-top">
-          </div>
-          <div className="menu">
-            <div className="add-song-button">
-              <button onClick={() => {this.handleClickOpen()}}>曲を登録する</button>
-            </div>
-            <nav>
-              {/* ナビゲーション項目 */}
-            </nav>
-          </div>
-        </aside>
+        <Sidebar />
         <main>
           <div className="main-top">
           </div>
           <div className="content">
             <Switch>
               <Route path="/create" exact>
-                <ModalContainer
-                  isModalOpen={this.state.isModalOpen}
-                  handleClickClose={() => {this.handleClickClose()}}
+                <CreateContainer
                   createSong={this.createSong}
                 />
               </Route>
-              <Route path="/" exact>
+              <Route path="/songs" exact>
                 <SongsContainer
-                  songData={this.state.songs}
+                  songs={this.state.songs}
                   deleteSong={this.deleteSong}
                   updateSong={this.updateSong}
                 />
+              </Route>
+              <Route path="/edit/:id" exact>
+                <EditContainer
+                  updateSong={this.updateSong}
+                />
+              </Route>
+              <Route path="/" exact>
+                TOPページです
               </Route>
             </Switch>
           </div>
